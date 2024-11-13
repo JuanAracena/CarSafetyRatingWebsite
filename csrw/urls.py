@@ -23,5 +23,5 @@ from home import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('welcome', ReactWelcomeView.as_view(), name='welcome'),
+    path('', ReactWelcomeView.as_view(), name='welcome'),
 ]
