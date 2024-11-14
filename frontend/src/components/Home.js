@@ -49,7 +49,7 @@ function Home() {
     
     return (
         <div id="welcome">
-            <h1>Car Safety Rating Website</h1>
+            {/* <h1>Car Safety Rating Website</h1> */}
             <div id="search">
                 <hr></hr>
                 {details.map((output, id) => (
