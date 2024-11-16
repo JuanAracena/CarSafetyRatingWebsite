@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import "./NavbarStyle.css";
-import Dropdown from './Dropdown/Dropdown';
 
 function Navbar() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -33,11 +32,13 @@ function Navbar() {
             <h1><Link to="/">{text}</Link></h1>
             <ul>
                 <li id="home">
-                    <Link to="/">Home</Link>
+                    <Link to="/">Search</Link>
+                </li>
+                <li id="bookmarks">
+                    <Link to="/bookmarks">Boorkmarks</Link>
                 </li>
                 <li id="login">
-                    <Dropdown buttonText="Login" content={<p>Hello World!</p>}/>
-                    {/* <Link to="/login">Login</Link> */}
+                    <Link to="/login">Login</Link>
                 </li>
             </ul>
         </div>

@@ -2,6 +2,8 @@ import React from 'react';
 
 import Home from "./components/Home";
 import Navbar from "./components/Navbar"
+import Login from "./components/Login";
+import Bookmarks from "./components/Bookmarks";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 
@@ -13,6 +15,8 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
       </Routes>
     </BrowserRouter>
   )
