@@ -3,34 +3,46 @@ import axios from 'axios';
 import {useState, useEffect} from "react";
 
 
+function getMakeData(makeData) {
+
+    const list = [];
+
+    makeData["Results"].forEach((x, y) => {
+        list.push(x["Make_Name"])
+    })
+
+    return list;
+
+}
+
 function Home() {
     
     //Get all makes from NHTSA API
-    const [makeData, setMakeData] = useState([])
+    const [makeData, setMakeData] = useState();
+    const [makeNames, setMakeNames] = useState([]);
 
     useEffect(() => {
         fetch(
             "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json"
         )
         .then((response) => response.json())
-        .then(setMakeData);
+        .then((data) => {
+            setMakeData(data);
+            const names = getMakeData(data);
+            setMakeNames(names);
+            console.log("Makes loaded");
+        });
     }, []);
 
-    // var makeJSONData = JSON.parse(makeData)
-    makeData["Results"].forEach((x, y) => {
-        console.log(x["Make_Name"])
-    })
 
 
-    //  var makeNames = makeJSONData.map(key => key.Make_Name)
-    //  console.log(makeNames)
+    // let makeNames;
 
-    // if (makeData)
-    //     return (
-    //         <pre>{JSON.stringify(makeData, null, 2)}</pre>    
-    //     );
-
-    
+    // //Check if makeNames already has the makes from the API
+    // if (!makeNames) {
+    //     makeNames = getMakeData(makeData)
+    //     console.log("Makes loaded")
+    // }    
 
     //Get data from NHTSA API
     // const [nhtsaData, setNhtsaData] = useState([])
@@ -79,9 +91,9 @@ function Home() {
                 <form>
                     <label for="make">Make</label>
                     <select name="Make" id="make">
-                        {/* {makeJSONData.map((key) =>(
-                           <option value={key.Make_Name}>{key.Make_Name}</option> 
-                        ))} */}
+                        {makeNames.map((names, index) => {
+                            return (<option key={index} value={names}>{names}</option>)
+                        })}
                     </select>
                     <label for="model">Model</label>
                     <select name="Model" id="model">
