@@ -17,10 +17,16 @@ function getMakeData(makeData) {
 
 function Home() {
     
-    //Get all makes from NHTSA API
+    //Make states
     const [makeData, setMakeData] = useState();
     const [makeNames, setMakeNames] = useState([]);
 
+    //Model states
+    const [modelsData, setModelsData] = useState({});
+    const [selectedMake, setSelectedMake] =  useState("");
+    const [modelOptions, setModelOptions] = useState([]);
+
+    //Fetch all makes from NHTSA API
     useEffect(() => {
         fetch(
             "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json"
@@ -35,8 +41,35 @@ function Home() {
     }, []);
 
 
+    //Fetch models from make the user selected
+    useEffect(() => {
+        fetch(
+            `https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/${selectedMake}?format=json`
+        )
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Models API Response:", data)
+            const models = data.Results.map((x) => x.Model_Name);
+            setModelsData((prev) => ({...prev, [selectedMake]: models}));
+            setModelOptions(models);
+        })
+        .catch((error) => console.error("Error fetching models data:", error)
+        );
+    }, [selectedMake]);
 
-    // let makeNames;
+    
+    //Handle change in make dropdown
+    const handleMakeChange = (event) => {
+        const selected = event.target.value;
+        console.log("Selected:", selected);
+        setSelectedMake(selected);
+
+        if (modelsData[selected]) {
+            setModelOptions(modelsData[selected]);
+        } else {
+            setModelOptions([]);
+        }
+    };
 
     // //Check if makeNames already has the makes from the API
     // if (!makeNames) {
@@ -84,22 +117,25 @@ function Home() {
     //     }
     // })
     
+     // console.log("Model Options:", modelOptions)
 
     return (
         <div id="welcome">
             <div id="search_div">
                 <form>
                     <label for="make">Make</label>
-                    <select name="Make" id="make">
+                    <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange}>
+                        <option value="">Select a Make</option>
                         {makeNames.map((names, index) => {
                             return (<option key={index} value={names}>{names}</option>)
                         })}
                     </select>
                     <label for="model">Model</label>
                     <select name="Model" id="model">
-                        <option value="test1">Test1</option>
-                        <option value="test2">Test2</option>
-                        <option value="test3">Test3</option>
+                        <option value="">Select a Model</option>
+                        {modelOptions.map((model, index) => {
+                            return <option key={index} value={model}>{model}</option>
+                        })}
                     </select>
                     <label for="modelyear">Model Year</label>
                     <select name="Model Year" id="modelyear">
