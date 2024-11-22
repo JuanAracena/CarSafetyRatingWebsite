@@ -3,89 +3,142 @@ import axios from 'axios';
 import {useState, useEffect} from "react";
 
 
+function getModelData(makeData) {
+    const list = [];
+
+    makeData["Results"].forEach((x, y) => {
+        list.push(x["Model"])
+    });
+
+    return list;
+}
+
 function getMakeData(makeData) {
 
     const list = [];
 
     makeData["Results"].forEach((x, y) => {
-        list.push(x["Make_Name"])
-    })
+        list.push(x["Make"])
+    });
 
     return list;
 
 }
 
+function getYearData(makeData) {
+    const list = []
+
+    console.log(makeData)
+    makeData["Results"].forEach((x, y) => {
+        list.push(x["ModelYear"])
+    });
+
+    return list;
+}
+
 function Home() {
     
+    //Model year states
+    const [yearsData, setYearsData] = useState();
+    const [selectedYear, setSelectedYear] = useState("");
+    const [yearOptions, setYearOptions] = useState([]);
+
+
     //Make states
-    const [makeData, setMakeData] = useState();
     const [makeNames, setMakeNames] = useState([]);
+    const [selectedMake, setSelectedMake] =  useState("");
+    
 
     //Model states
-    const [modelsData, setModelsData] = useState({});
-    const [selectedMake, setSelectedMake] =  useState("");
-    const [modelOptions, setModelOptions] = useState([]);
+    const [modelNames, setModelNames] = useState([]);
+    const [selectedModel, setSelectedModel] = useState("");
 
-    //Fetch all makes from NHTSA API
+
+    //Search state
+    const [searchResults, setSearchResults] = useState([]);
+
     useEffect(() => {
         fetch(
-            "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json"
+            "https://api.nhtsa.gov/SafetyRatings"
         )
         .then((response) => response.json())
         .then((data) => {
-            setMakeData(data);
-            const names = getMakeData(data);
-            setMakeNames(names);
-            console.log("Makes loaded");
-        });
+            setYearsData(data);
+            const years = getYearData(data);
+            setYearOptions(years);
+
+        })
     }, []);
 
 
-    //Fetch models from make the user selected
+    //Fetch all makes based on the selected model year
     useEffect(() => {
         fetch(
-            `https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/${selectedMake}?format=json`
+            `https://api.nhtsa.gov/SafetyRatings/modelyear/${selectedYear}`
         )
         .then((response) => response.json())
         .then((data) => {
-            console.log("Models API Response:", data)
-            const models = data.Results.map((x) => x.Model_Name);
-            setModelsData((prev) => ({...prev, [selectedMake]: models}));
-            setModelOptions(models);
+            const makes = getMakeData(data);
+            setMakeNames(makes);
         })
-        .catch((error) => console.error("Error fetching models data:", error)
+        .catch((error) => console.error("Error fetching makes data:", error)
         );
+    }, [selectedYear]);
+
+
+    //Fetch all models based on the selected make
+
+    useEffect(() => {
+        if (selectedYear && selectedMake) {
+            fetch(`https://api.nhtsa.gov/SafetyRatings/modelyear/${selectedYear}/make/${selectedMake}`)
+            .then((response) => response.json())
+            .then((data) => {
+                const models = getModelData(data);
+                setModelNames(models);
+            })
+        .catch((error) => console.error("Error fetching models data:", error));
+        }
+        
     }, [selectedMake]);
 
-    
-    //Handle change in make dropdown
-    const handleMakeChange = (event) => {
+
+    //Updates selected year
+    const handleYearChange = (event) => {
         const selected = event.target.value;
         console.log("Selected:", selected);
+        setSelectedYear(selected);
+
+    }
+
+    //Updates selected make
+    const handleMakeChange = (event) => {
+        const selected = event.target.value;
         setSelectedMake(selected);
+    }
 
-        if (modelsData[selected]) {
-            setModelOptions(modelsData[selected]);
-        } else {
-            setModelOptions([]);
-        }
-    };
-
-    // //Check if makeNames already has the makes from the API
-    // if (!makeNames) {
-    //     makeNames = getMakeData(makeData)
-    //     console.log("Makes loaded")
-    // }    
-
-    //Get data from NHTSA API
-    // const [nhtsaData, setNhtsaData] = useState([])
-
-    // useEffect(() => {
-    //     axios.get("https://vpic.nhtsa.dot.gov/api/vehicles/GetAllMakes?format=json")
-    //     .then((res) => {setNhtsaData(res.nhtsaData)})
-    //     .catch((error) => console.error(error))
-    // }, [])
+    //Updates selected model
+    const handleModelChange = (event) => {
+        const selected = event.target.value;
+        setSelectedModel(selected);
+    }
+  
     
+    //Handles form submission to fetch results
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (selectedYear && selectedMake && selectedModel) {
+            fetch(`https://api.nhtsa.gov/SafetyRatings/modelyear/${selectedYear}/make/${selectedMake}/model/${selectedModel}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setSearchResults(data.Results);
+            })
+            .catch((error) => console.error("Error fetching search results:", error)
+            );
+        }
+        console.log("Search results:", searchResults);
+           
+    };
 
     //Get data from postgresql db
     // const [details, setDetails] = useState([])
@@ -117,33 +170,32 @@ function Home() {
     //     }
     // })
     
-     // console.log("Model Options:", modelOptions)
-
     return (
         <div id="welcome">
             <div id="search_div">
-                <form>
+                <form onSubmit={handleSubmit}>
+                <label for="modelyear">Model Year</label>
+                    <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>
+                        <option value="">Select a Model Year</option>
+                        {yearOptions.map((year, index) => {
+                            return <option key={index} value={year}>{year}</option>
+                        })}
+                    </select>
                     <label for="make">Make</label>
-                    <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange}>
+                    <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange} disabled={!selectedYear}>
                         <option value="">Select a Make</option>
                         {makeNames.map((names, index) => {
                             return (<option key={index} value={names}>{names}</option>)
                         })}
                     </select>
                     <label for="model">Model</label>
-                    <select name="Model" id="model">
+                    <select name="Model" id="model" value={selectedModel} onChange={handleModelChange} disabled={!selectedMake}>
                         <option value="">Select a Model</option>
-                        {modelOptions.map((model, index) => {
+                        {modelNames.map((model, index) => {
                             return <option key={index} value={model}>{model}</option>
                         })}
                     </select>
-                    <label for="modelyear">Model Year</label>
-                    <select name="Model Year" id="modelyear">
-                        <option value="test1">Test1</option>
-                        <option value="test2">Test2</option>
-                        <option value="test3">Test3</option>
-                    </select>
-                    <input type="submit" value="Search"></input>
+                    <button type="submit" disabled={!selectedModel}>Search</button>
                 </form>
             </div>
         </div>
