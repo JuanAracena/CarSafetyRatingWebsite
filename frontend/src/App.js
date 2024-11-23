@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar"
 import Login from "./components/Login";
 import Bookmarks from "./components/Bookmarks";
+import Details from "./components/Details";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/details" element={<Details />} />
       </Routes>
     </BrowserRouter>
   )

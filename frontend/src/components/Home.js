@@ -1,6 +1,7 @@
 import "./HomeStyle.css";
 import axios from 'axios';
 import {useState, useEffect} from "react";
+import {useNavigate, Link} from "react-router-dom";
 
 
 function getModelData(makeData) {
@@ -55,6 +56,7 @@ function Home() {
 
 
     //Search state
+    const navigate = useNavigate();
     const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
@@ -135,9 +137,7 @@ function Home() {
             })
             .catch((error) => console.error("Error fetching search results:", error)
             );
-        }
-        console.log("Search results:", searchResults);
-           
+        }           
     };
 
     //Get data from postgresql db
@@ -197,6 +197,19 @@ function Home() {
                     </select>
                     <button type="submit" disabled={!selectedModel}>Search</button>
                 </form>
+                <div id="results">
+                    <h2>Search Results:</h2>
+                    <ul>
+                        {searchResults.map((result, index) => {
+                            return <li key={index}>
+                                <div>
+                                    <Link to="/details" state= {{result}}>{result.VehicleId}</Link>
+                                </div>
+
+                            </li>
+                        })}
+                    </ul>
+                </div>
             </div>
         </div>
     )
