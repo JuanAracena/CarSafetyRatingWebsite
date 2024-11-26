@@ -203,7 +203,7 @@ function Home() {
                         {searchResults.map((result, index) => {
                             return <li key={index}>
                                 <div>
-                                    <Link to="/details" state= {{result}}>{result.VehicleId}</Link>
+                                    <Link to="/details" state= {{result}}>{result.VehicleDescription}</Link>
                                 </div>
 
                             </li>
