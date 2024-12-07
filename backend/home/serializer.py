@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from . models import *
 
-class CarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Car
-        fields = ['modelyear', 'make', 'model', 'vehicletype', 'drivetrain', 'curbweight', 'frontbarrierdriversr', 'frontbarrierpassengersr', 'sidebarrierrearseatsr', 'sidebarrierfrontseatsr', 'rolloverrisk']
+# class CarSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Car
+#         fields = ['modelyear', 'make', 'model', 'vehicletype', 'drivetrain', 'curbweight', 'frontbarrierdriversr', 'frontbarrierpassengersr', 'sidebarrierrearseatsr', 'sidebarrierfrontseatsr', 'rolloverrisk']
 
 
 # class UsersSerializer(serializers.ModelSerializer):

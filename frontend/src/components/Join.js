@@ -7,8 +7,9 @@ function Join() {
         event.preventDefault();
 
         const username = event.target.username.value.trim()
+        const email = event.target.email.value.trim()
         const password = event.target.password.value.trim()
-        const formData = {username, password};
+        const formData = {username, email, password};
 
         axios.post("http://127.0.0.1:8000/account/", formData)
             .then((response) => console.log("Server response:", response.data))
@@ -26,6 +27,9 @@ function Join() {
                 <form onSubmit={handleSubmit}>
                     <label>Create an username: </label>
                     <input name="username" type="text" required></input>
+                    <br></br>
+                    <label>Enter your email: </label>
+                    <input name="email" type="email" required></input>
                     <br></br>
                     <label>Create a password: </label>
                     <input name="password" type="password" required></input>

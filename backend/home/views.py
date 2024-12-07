@@ -11,19 +11,21 @@ from rest_framework.response import Response
 
 class ReactWelcomeView(APIView):
 
-    serializer_class = CarSerializer
+    # serializer_class = CarSerializer
 
     def get(self, request):
-        output = [{'make': output.make,
-                   'model': output.model}
-                   for output in Car.objects.all()]
-        return Response(output)
+        # output = [{'make': output.make,
+        #            'model': output.model}
+        #            for output in Car.objects.all()]
+        # return Response(output)
+        return HttpResponse("Bye")
     
     def post(self, request):
-        serializer = CarSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+        # serializer = CarSerializer(data=request.data)
+        # if serializer.is_valid(raise_exception=True):
+        #     serializer.save()
+        #     return Response(serializer.data)
+        return HttpResponse("Hello")
 
 def welcome(request):
     return render(request, 'home/welcome.html')
