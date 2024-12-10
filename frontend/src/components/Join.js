@@ -9,7 +9,8 @@ function Join() {
         const username = event.target.username.value.trim()
         const email = event.target.email.value.trim()
         const password = event.target.password.value.trim()
-        const formData = {username, email, password};
+        const action = "register"
+        const formData = {username, email, password, action};
 
         axios.post("http://127.0.0.1:8000/account/", formData)
             .then((response) => console.log("Server response:", response.data))

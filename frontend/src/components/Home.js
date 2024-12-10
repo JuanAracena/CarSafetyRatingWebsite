@@ -37,7 +37,7 @@ function getYearData(makeData) {
     return list;
 }
 
-function Home() {
+function Home({ isLoggedIn }) {
     
     //Model year states
     const [yearsData, setYearsData] = useState();
@@ -139,40 +139,16 @@ function Home() {
             );
         }           
     };
-
-    //Get data from postgresql db
-    // const [details, setDetails] = useState([])
-
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/')
-    //         .then(response => {
-    //             setDetails(response.data)
-    //         })
-    //         .catch(error => {
-    //             console.error(error)
-    //         });
-    // }, [])
-
-
-    // let data;
-    // axios.get('http://localhost:8000/welcome')
-    // .then((response) => {
-    //     data = response.data;
-    //     this.setState({
-    //         details: data
-    //     });
-    // })
-    // .catch(error => {
-    //     if (error.response) {
-    //         console.log(error.response);
-    //         console.log(error.response.status);
-    //         console.log(error.response.headers);
-    //     }
-    // })
     
     return (
         <div id="welcome">
             <div id="search_div">
+                <h1>Welcome to the Home Page</h1>
+                {isLoggedIn ? (
+                    <p>You are logged in!</p>
+                ) : (
+                    <p>Please log in to bookmark search results.</p>
+                )}
                 <form onSubmit={handleSubmit}>
                 <label for="modelyear">Model Year</label>
                     <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>

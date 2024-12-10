@@ -1,14 +1,20 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 
 
-function Login() {
+function Login({ setLoggedIn }) {
+
+    const [error, setError] = useState(null)
+    const navigate = useNavigate();
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const username = event.target.username.value.trim();
         const password = event.target.password.value.trim();
+        const action = "login"
 
         
 
@@ -21,14 +27,19 @@ function Login() {
         try {
             console.log(username)
             console.log(password)
+            console.log(action)
             const response = await axios.post(
                 "http://127.0.0.1:8000/account/",
-                { username, password }
+                { username, password, action }
             );
 
             console.log("Success:", response.data);
+            setLoggedIn(true);
+            navigate("/")
+
         } catch (error) {
             console.error("Error:", error.response.data);
+            setError(error.response?.data?.error || "An error occurred during login.");
         }
     };
 
@@ -47,6 +58,7 @@ function Login() {
                 </form>
                 <p id="joinQuestion">Don't have an account?</p>
                 <Link to="/join">Click Here!</Link>
+                {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
         </div>
     )
