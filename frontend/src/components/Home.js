@@ -38,6 +38,9 @@ function getYearData(makeData) {
 
 function Home({ isLoggedIn }) {
     
+    //Div state
+    const [content, setContent] = useState("Search");
+
     //Model year states
     const [yearsData, setYearsData] = useState();
     const [selectedYear, setSelectedYear] = useState("");
@@ -138,40 +141,48 @@ function Home({ isLoggedIn }) {
             );
         }           
     };
+
+    //Switches the content of welcome div
+    const handleContent = (newContent) => {
+        setContent(newContent);
+    }
     
     return (
         <div id="welcome">
-            <div id="search_div">
-                <h1>Welcome to the Home Page</h1>
-                {isLoggedIn ? (
-                    <p>You are logged in!</p>
-                ) : (
-                    <p>Please log in to bookmark search results.</p>
-                )}
+            <h1>Welcome to the Home Page</h1>
+            {isLoggedIn ? (
+                <p>You are logged in!</p>
+            ) : (
+                <p>Please log in to bookmark search results.</p>
+            )}
+            <button onClick={() => handleContent('Search')}>Search</button>
+            <button onClick={() => handleContent('Bookmarks')}>Bookmarks</button>
+            {content === "Search" && (
+                <div id="search_div">
                 <form onSubmit={handleSubmit}>
-                <label for="modelyear">Model Year</label>
-                    <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>
-                        <option value="">Select a Model Year</option>
-                        {yearOptions.map((year, index) => {
-                            return <option key={index} value={year}>{year}</option>
-                        })}
-                    </select>
-                    <label for="make">Make</label>
-                    <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange} disabled={!selectedYear}>
-                        <option value="">Select a Make</option>
-                        {makeNames.map((names, index) => {
-                            return (<option key={index} value={names}>{names}</option>)
-                        })}
-                    </select>
-                    <label for="model">Model</label>
-                    <select name="Model" id="model" value={selectedModel} onChange={handleModelChange} disabled={!selectedMake}>
-                        <option value="">Select a Model</option>
-                        {modelNames.map((model, index) => {
-                            return <option key={index} value={model}>{model}</option>
-                        })}
-                    </select>
-                    <button type="submit" disabled={!selectedModel}>Search</button>
-                </form>
+                    <label for="modelyear">Model Year</label>
+                        <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>
+                            <option value="">Select a Model Year</option>
+                            {yearOptions.map((year, index) => {
+                                return <option key={index} value={year}>{year}</option>
+                            })}
+                        </select>
+                        <label for="make">Make</label>
+                        <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange} disabled={!selectedYear}>
+                            <option value="">Select a Make</option>
+                            {makeNames.map((names, index) => {
+                                return (<option key={index} value={names}>{names}</option>)
+                            })}
+                        </select>
+                        <label for="model">Model</label>
+                        <select name="Model" id="model" value={selectedModel} onChange={handleModelChange} disabled={!selectedMake}>
+                            <option value="">Select a Model</option>
+                            {modelNames.map((model, index) => {
+                                return <option key={index} value={model}>{model}</option>
+                            })}
+                        </select>
+                        <button type="submit" disabled={!selectedModel}>Search</button>
+                    </form>
                 <div id="results">
                     <h2>Search Results:</h2>
                     <ul>
@@ -186,25 +197,17 @@ function Home({ isLoggedIn }) {
                     </ul>
                 </div>
             </div>
+            )}
+
+            {content === "Bookmarks" && (
+                <div id="bookmarks_div">
+                    <h2>Your Bookmarks</h2>
+                    <p>Call bookmark results here</p>
+                </div>
+            )}
         </div>
     )
     
-    // return (
-    //     <div id="welcome">
-    //         {/* <h1>Car Safety Rating Website</h1> */}
-    //         <div id="search">
-    //             <hr></hr>
-    //             {details.map((output, id) => (
-    //                 <div key={id}>
-    //                     <div>
-    //                         <h2>{output.make}</h2>
-    //                         <h3>{output.model}</h3>
-    //                     </div>
-    //                 </div>
-    //             ))}
-    //         </div>
-    //     </div>
-    // )
 }
 
 
