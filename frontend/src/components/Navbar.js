@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import "./NavbarStyle.css";
+import axios from "axios";
 
-function Navbar() {
+function Navbar({ isLoggedIn, setIsLoggedIn }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [text, setText] = useState("Car Rating Safety Website");
+    const navigate = useNavigate()
 
     useEffect(() => {
         const handleResize = () => {
@@ -27,6 +29,23 @@ function Navbar() {
         }
     }, [windowWidth])
 
+    const handleLogout = async () => {
+        try {
+            const action = "logout"
+            const response = await axios.post("http://127.0.0.1:8000/account/", {action});
+
+            if (response.status === 200){
+                setIsLoggedIn(false);
+                navigate("/login")
+            } else {
+                console.error("Failed to log out");
+            }
+        } catch(error) {
+            console.error("An error occurred during logout:", error.response || error.message);
+        }
+        
+    };
+
     return (
         <div id="nav">
             <h1><Link to="/">{text}</Link></h1>
@@ -37,9 +56,15 @@ function Navbar() {
                 <li id="bookmarks">
                     <Link to="/bookmarks">Boorkmarks</Link>
                 </li>
-                <li id="login">
+                {!isLoggedIn ? (
+                    <li id="login">
                     <Link to="/login">Login</Link>
                 </li>
+                ) : (<li id="logout">
+                    <Link to="/" onClick={handleLogout}>Logout</Link>
+                </li>)
+                }
+                
             </ul>
         </div>
     )

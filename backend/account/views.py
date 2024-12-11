@@ -6,12 +6,15 @@ from .serializer import UserSerializer
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
+from django.contrib.auth import logout
 
 
 # Create your views here.
 
 class ReactAccountView(APIView):
     
+    #permission_classes = [IsAuthenticated]
+
     def get(self, request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -37,7 +40,10 @@ class ReactAccountView(APIView):
                 return Response({"message": "Login successful", "user_username": user.username}, status=status.HTTP_200_OK)
             
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-
+        
+        elif action == "logout":
+            logout(request)
+            return Response({"message": "Successfully logged out"}, status=200)
         return Response({"error": "Invalid action"}, status=status.HTTP_400_BAD_REQUEST)        
         
         

@@ -1,5 +1,4 @@
 import "./HomeStyle.css";
-import axios from 'axios';
 import {useState, useEffect} from "react";
 import {useNavigate, Link} from "react-router-dom";
 
