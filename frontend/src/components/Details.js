@@ -17,6 +17,8 @@ function getDetailsData(dData){
         list.push(x["SideCrashPassengersideRating"]);
         list.push(x["RolloverPossibility"]);
         list.push(x["OverallRating"]);
+        list.push(x["VehicleDescription"])
+
         
         
     })
