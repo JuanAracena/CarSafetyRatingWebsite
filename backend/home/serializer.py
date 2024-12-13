@@ -1,19 +1,10 @@
 from rest_framework import serializers
 from . models import *
 
-# class CarSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Car
-#         fields = ['modelyear', 'make', 'model', 'vehicletype', 'drivetrain', 'curbweight', 'frontbarrierdriversr', 'frontbarrierpassengersr', 'sidebarrierrearseatsr', 'sidebarrierfrontseatsr', 'rolloverrisk']
+class BookmarksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmarks
+        fields = ['modelyear', 'make', 'frontcrashdr', 'frontcrashpr', 'sidecrashdr', 'sidecrashpr', 'rolloverrisk', 'overallrating', 'vehicledescription', 'model']
 
-
-# class UsersSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Users
-#         fields = ['username', 'password']
-    
-
-# class BookmarksSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Bookmarks
-#         fields = ['bookmark_id', 'username', 'modelyear', 'model', 'make']
+    def create(self, validated_data):
+        return Bookmarks.objects.create(**validated_data)

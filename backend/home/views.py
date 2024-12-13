@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from . models import *
 from . serializer import *
 from rest_framework.response import Response
+from rest_framework import status
+
 
 
 
@@ -18,14 +20,22 @@ class ReactWelcomeView(APIView):
         #            'model': output.model}
         #            for output in Car.objects.all()]
         # return Response(output)
-        return HttpResponse("Bye")
+
+        output = Bookmarks.objects.all()
+        return Response(output)
     
     def post(self, request):
         # serializer = CarSerializer(data=request.data)
         # if serializer.is_valid(raise_exception=True):
         #     serializer.save()
         #     return Response(serializer.data)
-        return HttpResponse("Hello")
+        serializer = BookmarksSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response({"error": "Invalid action"}, status=status.HTTP_400_BAD_REQUEST)        
+
 
 def welcome(request):
     return render(request, 'home/welcome.html')
