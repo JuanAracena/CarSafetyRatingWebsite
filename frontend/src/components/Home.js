@@ -36,7 +36,7 @@ function getYearData(makeData) {
     return list;
 }
 
-function Home({ isLoggedIn }) {
+function Home() {
     
     //Div state
     const [content, setContent] = useState("Search");
@@ -150,13 +150,8 @@ function Home({ isLoggedIn }) {
     return (
         <div id="welcome">
             <h1>Welcome to the Home Page</h1>
-            {isLoggedIn ? (
-                <p>You are logged in!</p>
-            ) : (
-                <p>Please log in to bookmark search results.</p>
-            )}
             <button onClick={() => handleContent('Search')}>Search</button>
-            <button onClick={() => handleContent('Bookmarks')}>Bookmarks</button>
+            <button onClick={() => handleContent('Featured')}>Featured</button>
             {content === "Search" && (
                 <div id="search_div">
                 <form onSubmit={handleSubmit}>
@@ -199,10 +194,10 @@ function Home({ isLoggedIn }) {
             </div>
             )}
 
-            {content === "Bookmarks" && (
-                <div id="bookmarks_div">
-                    <h2>Your Bookmarks</h2>
-                    <p>Call bookmark results here</p>
+            {content === "Featured" && (
+                <div id="featured_div">
+                    <h2>Featured:</h2>
+                    <p>Show featured cars here</p>
                 </div>
             )}
         </div>

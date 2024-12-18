@@ -50,7 +50,7 @@ function Results() {
         })
     }, [])
 
-    const addBookmark = async (event) => {
+    const addFeatured = async (event) => {
         event.preventDefault()
 
         console.log("details list: ", details);
@@ -64,9 +64,13 @@ function Results() {
         const rollover = details[6]
         const overall = details[7]
         const model = details[9]
+        const vehicledscr = details[8]
 
-        const formData = {modelyear, make, fcdr, fcpr, scdr, scpr, rollover, overall, model}
+        console.log("Fcdr type: ", typeof fcdr);
 
+        const formData = {modelyear, make, fcdr, fcpr, scdr, scpr, rollover, overall, model, vehicledscr}
+
+        console.log("Form Data: ", formData)
         axios.post("http://127.0.0.1:8000/", formData)
             .then((response) => console.log("Server response:", response.data))
             .catch((error) => console.log("Error:", error.response.data));
@@ -96,11 +100,11 @@ function Results() {
                 <p><strong>Front Crash Passengerside Rating:</strong> {details[3]}</p>
                 <p><strong>Side Crash Driverside Rating:</strong> {details[4]}</p>
                 <p><strong>Side Crash Passengerside Rating:</strong> {details[5]}</p>
-                <p><strong>Rollover Possibility:</strong> {details[6]}</p>
+                <p><strong>Rollover Possibility:</strong> {details[6] * 100}%</p>
                 <p><strong>Overall Rating:</strong> {details[7]}</p>
             </div>
-            <div id="bookmark_div">
-                <button onClick={addBookmark}>Add to Bookmarks</button>
+            <div id="featured_div">
+                <button onClick={addFeatured}>Like</button>
             </div>
             
         </div>

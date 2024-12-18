@@ -13,23 +13,13 @@ from rest_framework import status
 
 class ReactWelcomeView(APIView):
 
-    # serializer_class = CarSerializer
-
     def get(self, request):
-        # output = [{'make': output.make,
-        #            'model': output.model}
-        #            for output in Car.objects.all()]
-        # return Response(output)
-
-        output = Bookmarks.objects.all()
-        return Response(output)
+        output = Likes.objects.all()
+        serializers = LikesSerializer(output, many=True)
+        return Response(serializers.data, status=status.HTTP_200_OK)
     
     def post(self, request):
-        # serializer = CarSerializer(data=request.data)
-        # if serializer.is_valid(raise_exception=True):
-        #     serializer.save()
-        #     return Response(serializer.data)
-        serializer = BookmarksSerializer(data=request.data)
+        serializer = LikesSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)

@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from . models import *
 
-class BookmarksSerializer(serializers.ModelSerializer):
+class LikesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Bookmarks
-        fields = ['modelyear', 'make', 'frontcrashdr', 'frontcrashpr', 'sidecrashdr', 'sidecrashpr', 'rolloverrisk', 'overallrating', 'vehicledescription', 'model']
+        model = Likes
+        fields = ['modelyear', 'make', 'frontcrashdr', 'frontcrashpr', 'sidecrashdr', 'sidecrashpr', 'rolloverrisk', 'overallrating', 'model', 'likesnum', 'vehicledescription']
 
     def create(self, validated_data):
-        return Bookmarks.objects.create(**validated_data)
+        return Likes.objects.create(**validated_data)
