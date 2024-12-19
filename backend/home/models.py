@@ -16,12 +16,12 @@ class Likes(models.Model):
     frontcrashpr = models.CharField(max_length=9, blank=True, null=True)
     sidecrashdr = models.CharField(max_length=9, blank=True, null=True)
     sidecrashpr = models.CharField(max_length=9, blank=True, null=True)
-    rolloverrisk = models.DecimalField(max_digits=3, decimal_places=0, blank=True, null=True)
+    rolloverrisk = models.DecimalField(max_digits=3, decimal_places=3, blank=True, null=True)
     overallrating = models.CharField(max_length=9, blank=True, null=True)
     model = models.CharField(max_length=100, blank=True, null=True)
     likesnum = models.IntegerField(blank=True, null=True)
     vehicledescription = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'likes'
