@@ -28,7 +28,6 @@ function getDetailsData(dData){
 }
 
 
-
 function Results() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -50,6 +49,7 @@ function Results() {
         })
     }, [])
 
+
     const addFeatured = async (event) => {
         event.preventDefault()
 
@@ -67,6 +67,7 @@ function Results() {
         const vehicledescription = details[8]
 
         const formData = {modelyear, make, frontcrashdr, frontcrashpr, sidecrashdr, sidecrashpr, rolloverrisk, overallrating, model, vehicledescription}
+        
 
         console.log("Form Data: ", formData)
         axios.post("http://127.0.0.1:8000/", formData)
