@@ -15,7 +15,7 @@ class ReactWelcomeView(APIView):
 
 
     def get(self, request):
-        output = Likes.objects.all()
+        output = Likes.objects.order_by('-likesnum').all()
         serializers = LikesSerializer(output, many=True)
         return Response(serializers.data, status=status.HTTP_200_OK)
     

@@ -45,11 +45,13 @@ function Results() {
         .then((data) => {
             setDetailsData(data);
             const transfer = getDetailsData(data);
+            console.log("Data details: ", transfer)
+
             setDetails(transfer);
         })
     }, [])
 
-
+    
     const addFeatured = async (event) => {
         event.preventDefault()
 
@@ -104,6 +106,7 @@ function Results() {
             </div>
             <div id="featured_div">
                 <button onClick={addFeatured}>Like</button>
+                <button onClick={() => navigate("/")}>Home</button>
             </div>
             
         </div>

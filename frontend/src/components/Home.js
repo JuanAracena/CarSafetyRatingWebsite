@@ -1,6 +1,7 @@
 import "./HomeStyle.css";
 import {useState, useEffect} from "react";
 import {useNavigate, Link} from "react-router-dom";
+import axios from "axios";
 
 
 function getModelData(makeData) {
@@ -61,6 +62,9 @@ function Home() {
     const navigate = useNavigate();
     const [searchResults, setSearchResults] = useState([]);
 
+    //Feature results state
+    const [featuredResults, setFeaturedResults] = useState([]);
+
     useEffect(() => {
         fetch(
             "https://api.nhtsa.gov/SafetyRatings"
@@ -105,6 +109,14 @@ function Home() {
         
     }, [selectedMake]);
 
+    useEffect(() => {
+        axios.get("http://127.0.0.1:8000/")
+        
+            .then((response) =>  setFeaturedResults(response.data))
+
+            // .then((response) => console.log("Featured Results: ", response.data))
+            // .catch((error) => console.log("Error: ", error.response.data))
+    }, [content]);
 
     //Updates selected year
     const handleYearChange = (event) => {
@@ -135,6 +147,7 @@ function Home() {
             fetch(`https://api.nhtsa.gov/SafetyRatings/modelyear/${selectedYear}/make/${selectedMake}/model/${selectedModel}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log("Search results: ", data.Results)
                 setSearchResults(data.Results);
             })
             .catch((error) => console.error("Error fetching search results:", error)
@@ -142,9 +155,22 @@ function Home() {
         }           
     };
 
+    //Gets featured results from db
+    // const handleFeatured = () => {
+    //     axios.get("http://127.0.0.1:8000/")
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setFeaturedResults(data.Results)
+    //         })
+    //         .catch((error) => console.log("Error: ", error.response.data))
+
+    // }
+
     //Switches the content of welcome div
     const handleContent = (newContent) => {
         setContent(newContent);
+        // handleFeatured();
+
     }
     
     return (
@@ -197,7 +223,15 @@ function Home() {
             {content === "Featured" && (
                 <div id="featured_div">
                     <h2>Featured:</h2>
-                    <p>Show featured cars here</p>
+                    <ul>
+                        {featuredResults.map((result, index) => {
+                            return <li key={index}>
+                                <div>
+                                    <Link to="/details" state={{result}}>{result.vehicledescription}</Link>
+                                </div>
+                            </li>
+                        })}
+                    </ul>
                 </div>
             )}
         </div>
