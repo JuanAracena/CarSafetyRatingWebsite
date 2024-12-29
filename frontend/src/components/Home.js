@@ -114,6 +114,8 @@ function Home() {
         
             .then((response) =>  setFeaturedResults(response.data))
 
+            
+
             // .then((response) => console.log("Featured Results: ", response.data))
             // .catch((error) => console.log("Error: ", error.response.data))
     }, [content]);
@@ -227,8 +229,7 @@ function Home() {
                         {featuredResults.map((result, index) => {
                             return <li key={index}>
                                 <div>
-                                    <Link to="/details" state={{result}}>{result.vehicledescription}</Link>
-                                </div>
+                                    <Link to="/fdetails" state={{result}}>{result.vehicledescription}</Link>                                </div>
                             </li>
                         })}
                     </ul>
