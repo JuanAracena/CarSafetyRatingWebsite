@@ -229,7 +229,9 @@ function Home() {
                         {featuredResults.map((result, index) => {
                             return <li key={index}>
                                 <div>
-                                    <Link to="/fdetails" state={{result}}>{result.vehicledescription}</Link>                                </div>
+                                    <Link to="/fdetails" state={{result}}>{result.vehicledescription}</Link>
+                                    <p>Likes: {result.likesnum}</p>                               
+                                </div>
                             </li>
                         })}
                     </ul>
