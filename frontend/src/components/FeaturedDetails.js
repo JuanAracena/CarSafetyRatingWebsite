@@ -20,21 +20,6 @@ function getFDetails(dData) {
     list.push(dData.model);
     list.push(dData.vehicledescription);
     
-    // dData["Results"].forEach((x, y) => {
-    //     list.push(x["ModelYear"]);
-    //     list.push(x["Make"]);
-    //     list.push(x["FrontCrashDriversideRating"]);
-    //     list.push(x["FrontCrashPassengersideRating"]);
-    //     list.push(x["SideCrashDriversideRating"]);
-    //     list.push(x["SideCrashPassengersideRating"]);
-    //     list.push(x["RolloverPossibility"]);
-    //     list.push(x["OverallRating"]);
-    //     list.push(x["VehicleDescription"])
-    //     list.push(x["Model"]);
-
-        
-        
-    // })
 
     console.log(list);
     return list
@@ -48,8 +33,6 @@ function FeaturedDetails() {
     const [fDetails, setFDetails] = useState();
 
     const result = location.state?.result;
-
-    // console.log(result);
 
     useEffect(() =>{
         setFDetails(getFDetails(result));

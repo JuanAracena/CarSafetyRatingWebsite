@@ -1,0 +1,5 @@
+#welcome {
+    display: grid;
+    grid-template-rows: 120px 50px 200px;
+    padding-left: 30px;
+}

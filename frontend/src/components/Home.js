@@ -111,13 +111,7 @@ function Home() {
 
     useEffect(() => {
         axios.get("http://127.0.0.1:8000/")
-        
             .then((response) =>  setFeaturedResults(response.data))
-
-            
-
-            // .then((response) => console.log("Featured Results: ", response.data))
-            // .catch((error) => console.log("Error: ", error.response.data))
     }, [content]);
 
     //Updates selected year
@@ -157,29 +151,19 @@ function Home() {
         }           
     };
 
-    //Gets featured results from db
-    // const handleFeatured = () => {
-    //     axios.get("http://127.0.0.1:8000/")
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setFeaturedResults(data.Results)
-    //         })
-    //         .catch((error) => console.log("Error: ", error.response.data))
-
-    // }
-
     //Switches the content of welcome div
     const handleContent = (newContent) => {
         setContent(newContent);
-        // handleFeatured();
-
     }
     
     return (
         <div id="welcome">
             <h1>Welcome to the Home Page</h1>
-            <button onClick={() => handleContent('Search')}>Search</button>
-            <button onClick={() => handleContent('Featured')}>Featured</button>
+            <div id="welcome_tabs">
+                <button onClick={() => handleContent('Search')}>Search</button>
+                <button onClick={() => handleContent('Featured')}>Featured</button>
+            </div>
+            <div id="welcome_content">
             {content === "Search" && (
                 <div id="search_div">
                 <form onSubmit={handleSubmit}>
@@ -237,6 +221,8 @@ function Home() {
                     </ul>
                 </div>
             )}
+            </div>
+            
         </div>
     )
     
