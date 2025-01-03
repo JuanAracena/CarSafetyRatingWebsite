@@ -1,5 +1,27 @@
+#background {
+    height: fit-content;
+}
+
 #welcome {
     display: grid;
-    grid-template-rows: 120px 50px 200px;
+    grid-template-rows: 50px 200px;
+    grid-row-gap: 30px;
     padding-left: 30px;
+    padding-top: 30px;
+}
+
+#welcome_tabs {
+    display: grid;
+    grid-template-columns: 100px 100px;
+    grid-column-gap: 20px;
+    
+    
+}
+
+#welcome_tabs button {
+    background: none;
+    /* border: none; */
+    font-size: 20px;
+    text-align: start;
+
 }

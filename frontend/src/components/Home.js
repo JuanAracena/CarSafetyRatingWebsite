@@ -158,7 +158,6 @@ function Home() {
     
     return (
         <div id="welcome">
-            <h1>Welcome to the Home Page</h1>
             <div id="welcome_tabs">
                 <button onClick={() => handleContent('Search')}>Search</button>
                 <button onClick={() => handleContent('Featured')}>Featured</button>
@@ -167,21 +166,21 @@ function Home() {
             {content === "Search" && (
                 <div id="search_div">
                 <form onSubmit={handleSubmit}>
-                    <label for="modelyear">Model Year</label>
+                    <label for="modelyear">Model Year: </label>
                         <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>
                             <option value="">Select a Model Year</option>
                             {yearOptions.map((year, index) => {
                                 return <option key={index} value={year}>{year}</option>
                             })}
                         </select>
-                        <label for="make">Make</label>
+                        <label for="make">Make: </label>
                         <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange} disabled={!selectedYear}>
                             <option value="">Select a Make</option>
                             {makeNames.map((names, index) => {
                                 return (<option key={index} value={names}>{names}</option>)
                             })}
                         </select>
-                        <label for="model">Model</label>
+                        <label for="model">Model: </label>
                         <select name="Model" id="model" value={selectedModel} onChange={handleModelChange} disabled={!selectedMake}>
                             <option value="">Select a Model</option>
                             {modelNames.map((model, index) => {
@@ -208,7 +207,7 @@ function Home() {
 
             {content === "Featured" && (
                 <div id="featured_div">
-                    <h2>Featured:</h2>
+                    {/* <h2>Featured:</h2> */}
                     <ul>
                         {featuredResults.map((result, index) => {
                             return <li key={index}>
