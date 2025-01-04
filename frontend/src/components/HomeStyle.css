@@ -25,3 +25,31 @@
     text-align: start;
 
 }
+
+#search_div {
+    height: initial;
+}
+
+#welcome_content {
+    height: fit-content;
+}
+
+#results_ul {
+    list-style-type: none;
+}
+
+#featured_ul {
+    list-style-type: none;
+}
+
+#likes {
+    text-align: center;
+}
+
+#likes_icon {
+    vertical-align: bottom;
+}
+
+#search_button {
+    margin-top: 10px;
+}

@@ -2,6 +2,7 @@ import "./HomeStyle.css";
 import {useState, useEffect} from "react";
 import {useNavigate, Link} from "react-router-dom";
 import axios from "axios";
+import { FaHeart } from "react-icons/fa";
 
 
 function getModelData(makeData) {
@@ -166,32 +167,35 @@ function Home() {
             {content === "Search" && (
                 <div id="search_div">
                 <form onSubmit={handleSubmit}>
-                    <label for="modelyear">Model Year: </label>
+                    <label id="modelyear_label" for="modelyear">Model Year: </label>
                         <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>
                             <option value="">Select a Model Year</option>
                             {yearOptions.map((year, index) => {
                                 return <option key={index} value={year}>{year}</option>
                             })}
                         </select>
-                        <label for="make">Make: </label>
+                        <br></br>
+                        <label id="make_label" for="make">Make: </label>
                         <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange} disabled={!selectedYear}>
                             <option value="">Select a Make</option>
                             {makeNames.map((names, index) => {
                                 return (<option key={index} value={names}>{names}</option>)
                             })}
                         </select>
-                        <label for="model">Model: </label>
+                        <br></br>
+                        <label id="model_label" for="model">Model: </label>
                         <select name="Model" id="model" value={selectedModel} onChange={handleModelChange} disabled={!selectedMake}>
                             <option value="">Select a Model</option>
                             {modelNames.map((model, index) => {
                                 return <option key={index} value={model}>{model}</option>
                             })}
                         </select>
-                        <button type="submit" disabled={!selectedModel}>Search</button>
+                        <br></br>
+                        <button id="search_button" type="submit" disabled={!selectedModel}>Search</button>
                     </form>
                 <div id="results">
                     <h2>Search Results:</h2>
-                    <ul>
+                    <ul id="results_ul">
                         {searchResults.map((result, index) => {
                             return <li key={index}>
                                 <div>
@@ -208,12 +212,12 @@ function Home() {
             {content === "Featured" && (
                 <div id="featured_div">
                     {/* <h2>Featured:</h2> */}
-                    <ul>
+                    <ul id="featured_ul">
                         {featuredResults.map((result, index) => {
                             return <li key={index}>
                                 <div>
                                     <Link to="/fdetails" state={{result}}>{result.vehicledescription}</Link>
-                                    <p>Likes: {result.likesnum}</p>                               
+                                    <p id="likes"><FaHeart id="likes_icon"/> {result.likesnum}</p>                               
                                 </div>
                             </li>
                         })}
