@@ -160,13 +160,13 @@ function Home() {
     return (
         <div id="welcome">
             <div id="welcome_tabs">
-                <button onClick={() => handleContent('Search')}>Search</button>
-                <button onClick={() => handleContent('Featured')}>Featured</button>
+                <button id="search_tab" onClick={() => handleContent('Search')}autoFocus>Search</button>
+                <button id="featured_tab" onClick={() => handleContent('Featured')}>Featured</button>
             </div>
             <div id="welcome_content">
             {content === "Search" && (
                 <div id="search_div">
-                <form onSubmit={handleSubmit}>
+                <form id="search_form" onSubmit={handleSubmit}>
                     <label id="modelyear_label" for="modelyear">Model Year: </label>
                         <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>
                             <option value="">Select a Model Year</option>
