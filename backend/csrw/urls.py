@@ -18,12 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from home.views import *
-from account.views import *
-
-from home import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ReactWelcomeView.as_view(), name='welcome'),
-    path('account/', ReactAccountView.as_view(), name='account')
-]
+    path('', ReactWelcomeView.as_view(), name='welcome'),]

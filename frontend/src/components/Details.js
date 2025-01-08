@@ -28,7 +28,6 @@ function getDetailsData(dData){
 }
 
 
-
 function Results() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -46,27 +45,33 @@ function Results() {
         .then((data) => {
             setDetailsData(data);
             const transfer = getDetailsData(data);
+            console.log("Data details: ", transfer)
+
             setDetails(transfer);
         })
     }, [])
 
-    const addBookmark = async (event) => {
+    
+    const addFeatured = async (event) => {
         event.preventDefault()
 
         console.log("details list: ", details);
 
         const modelyear = details[0]
         const make = details[1]
-        const fcdr = details[2]
-        const fcpr = details[3]
-        const scdr = details[4]
-        const scpr = details[5]
-        const rollover = details[6]
-        const overall = details[7]
+        const frontcrashdr = details[2]
+        const frontcrashpr = details[3]
+        const sidecrashdr = details[4]
+        const sidecrashpr = details[5]
+        const rolloverrisk = details[6]
+        const overallrating = details[7]
         const model = details[9]
+        const vehicledescription = details[8]
 
-        const formData = {modelyear, make, fcdr, fcpr, scdr, scpr, rollover, overall, model}
+        const formData = {modelyear, make, frontcrashdr, frontcrashpr, sidecrashdr, sidecrashpr, rolloverrisk, overallrating, model, vehicledescription}
+        
 
+        console.log("Form Data: ", formData)
         axios.post("http://127.0.0.1:8000/", formData)
             .then((response) => console.log("Server response:", response.data))
             .catch((error) => console.log("Error:", error.response.data));
@@ -96,11 +101,12 @@ function Results() {
                 <p><strong>Front Crash Passengerside Rating:</strong> {details[3]}</p>
                 <p><strong>Side Crash Driverside Rating:</strong> {details[4]}</p>
                 <p><strong>Side Crash Passengerside Rating:</strong> {details[5]}</p>
-                <p><strong>Rollover Possibility:</strong> {details[6]}</p>
+                <p><strong>Rollover Possibility:</strong> {details[6] * 100}%</p>
                 <p><strong>Overall Rating:</strong> {details[7]}</p>
             </div>
-            <div id="bookmark_div">
-                <button onClick={addBookmark}>Add to Bookmarks</button>
+            <div id="featured_div">
+                <button onClick={addFeatured}>Like</button>
+                <button onClick={() => navigate("/")}>Home</button>
             </div>
             
         </div>

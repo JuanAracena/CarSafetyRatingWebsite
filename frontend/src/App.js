@@ -2,31 +2,22 @@ import React from 'react';
 
 import Home from "./components/Home";
 import Navbar from "./components/Navbar"
-import Login from "./components/Login";
-import Bookmarks from "./components/Bookmarks";
 import Details from "./components/Details";
-import Join from "./components/Join";
+import FeaturedDetails from "./components/FeaturedDetails";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import { useState } from 'react';
 
 
 function App() {
 
-  //Login state
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
   return (
     <BrowserRouter>
       <div id="background">
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Navbar />
       </div>
       <Routes>
-        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-        <Route path="/login" element={<Login setLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/" element={<Home />} />
         <Route path="/details" element={<Details />} />
+        <Route path="/fdetails" element={<FeaturedDetails />} />
       </Routes>
     </BrowserRouter>
   )

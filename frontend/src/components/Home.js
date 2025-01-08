@@ -1,6 +1,9 @@
 import "./HomeStyle.css";
 import {useState, useEffect} from "react";
 import {useNavigate, Link} from "react-router-dom";
+import axios from "axios";
+import { FaHeart } from "react-icons/fa";
+import { IoSearchSharp } from "react-icons/io5";
 
 
 function getModelData(makeData) {
@@ -36,7 +39,7 @@ function getYearData(makeData) {
     return list;
 }
 
-function Home({ isLoggedIn }) {
+function Home() {
     
     //Div state
     const [content, setContent] = useState("Search");
@@ -60,6 +63,9 @@ function Home({ isLoggedIn }) {
     //Search state
     const navigate = useNavigate();
     const [searchResults, setSearchResults] = useState([]);
+
+    //Feature results state
+    const [featuredResults, setFeaturedResults] = useState([]);
 
     useEffect(() => {
         fetch(
@@ -105,6 +111,10 @@ function Home({ isLoggedIn }) {
         
     }, [selectedMake]);
 
+    useEffect(() => {
+        axios.get("http://127.0.0.1:8000/")
+            .then((response) =>  setFeaturedResults(response.data))
+    }, [content]);
 
     //Updates selected year
     const handleYearChange = (event) => {
@@ -135,6 +145,7 @@ function Home({ isLoggedIn }) {
             fetch(`https://api.nhtsa.gov/SafetyRatings/modelyear/${selectedYear}/make/${selectedMake}/model/${selectedModel}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log("Search results: ", data.Results)
                 setSearchResults(data.Results);
             })
             .catch((error) => console.error("Error fetching search results:", error)
@@ -149,45 +160,45 @@ function Home({ isLoggedIn }) {
     
     return (
         <div id="welcome">
-            <h1>Welcome to the Home Page</h1>
-            {isLoggedIn ? (
-                <p>You are logged in!</p>
-            ) : (
-                <p>Please log in to bookmark search results.</p>
-            )}
-            <button onClick={() => handleContent('Search')}>Search</button>
-            <button onClick={() => handleContent('Bookmarks')}>Bookmarks</button>
+            <div id="welcome_tabs">
+                <button id="search_tab" onClick={() => handleContent('Search')}autoFocus>Search</button>
+                <button id="featured_tab" onClick={() => handleContent('Featured')}>Featured</button>
+            </div>
+            <div id="welcome_content">
             {content === "Search" && (
                 <div id="search_div">
-                <form onSubmit={handleSubmit}>
-                    <label for="modelyear">Model Year</label>
+                <form id="search_form" onSubmit={handleSubmit}>
+                    <label id="modelyear_label" for="modelyear">Model Year: </label>
                         <select name="Model Year" id="modelyear" value={selectedYear} onChange={handleYearChange}>
                             <option value="">Select a Model Year</option>
                             {yearOptions.map((year, index) => {
                                 return <option key={index} value={year}>{year}</option>
                             })}
                         </select>
-                        <label for="make">Make</label>
+                        <br></br>
+                        <label id="make_label" for="make">Make: </label>
                         <select name="Make" id="make" value={selectedMake} onChange={handleMakeChange} disabled={!selectedYear}>
                             <option value="">Select a Make</option>
                             {makeNames.map((names, index) => {
                                 return (<option key={index} value={names}>{names}</option>)
                             })}
                         </select>
-                        <label for="model">Model</label>
+                        <br></br>
+                        <label id="model_label" for="model">Model: </label>
                         <select name="Model" id="model" value={selectedModel} onChange={handleModelChange} disabled={!selectedMake}>
                             <option value="">Select a Model</option>
                             {modelNames.map((model, index) => {
                                 return <option key={index} value={model}>{model}</option>
                             })}
                         </select>
-                        <button type="submit" disabled={!selectedModel}>Search</button>
+                        <br></br>
+                        <button id="search_button" type="submit" disabled={!selectedModel}>Search <IoSearchSharp id="search_icon"/></button>
                     </form>
                 <div id="results">
-                    <h2>Search Results:</h2>
-                    <ul>
+                    <h2 id="search_results">Search Results:</h2>
+                    <ul id="results_ul">
                         {searchResults.map((result, index) => {
-                            return <li key={index}>
+                            return <li id="results_il" key={index}>
                                 <div>
                                     <Link to="/details" state= {{result}}>{result.VehicleDescription}</Link>
                                 </div>
@@ -199,12 +210,23 @@ function Home({ isLoggedIn }) {
             </div>
             )}
 
-            {content === "Bookmarks" && (
-                <div id="bookmarks_div">
-                    <h2>Your Bookmarks</h2>
-                    <p>Call bookmark results here</p>
+            {content === "Featured" && (
+                <div id="featured_div">
+                    {/* <h2>Featured:</h2> */}
+                    <ul id="featured_ul">
+                        {featuredResults.map((result, index) => {
+                            return <li key={index}>
+                                <div id="details_div">
+                                    <Link to="/fdetails" state={{result}}>{result.vehicledescription}{}</Link>
+                                    <p id="likes"><FaHeart id="likes_icon"/> {result.likesnum}</p>                               
+                                </div>
+                            </li>
+                        })}
+                    </ul>
                 </div>
             )}
+            </div>
+            
         </div>
     )
     

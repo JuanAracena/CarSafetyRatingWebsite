@@ -1,0 +1,131 @@
+#background {
+    height: fit-content;
+}
+
+#welcome {
+    display: grid;
+    grid-template-rows: 50px 200px;
+    /* grid-row-gap: 30px; */
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+
+#welcome_tabs {
+    display: grid;
+    grid-template-columns: 100px 100px;
+    /* grid-column-gap: 20px; */
+    background-color: lightgray;
+    border-radius: 20px 20px 0 0;
+    width: fit-content;
+    padding-right: 20px;
+    
+}
+
+#welcome_tabs button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    text-align: start;
+
+}
+
+#search_tab {
+    padding-left: 20px;
+}
+
+#search_tab:focus {
+    background-color: darkgray;
+    border-radius: 20px 20px 0 0;
+}
+
+#featured_tab {
+    margin-left: 0px;
+    padding-left: 20px;
+}
+
+#featured_tab:focus {
+    background-color: darkgrey;
+    border-radius: 20px 20px 0 0;
+    padding-right: 100px;
+}
+
+
+
+#search_div {
+    height: initial;
+    margin-left: 20px;
+    background-color: lightgray;
+    border-radius: 0px 20px 20px 20px;
+    width: fit-content;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+#search_form {
+    margin-right: 20px;
+    padding-bottom: 20px;
+}
+
+#search_results {
+    padding-bottom: 10px;
+}
+
+#welcome_content {
+    height: fit-content;
+    margin-left: -20px;
+}
+
+#results_ul {
+    list-style-type: none;
+    padding-right: 20px;
+}
+
+#results_il {
+    padding-bottom: 10px;
+}
+
+#featured_div {
+    
+    height: initial;
+    margin-left: 20px;
+    background-color: lightgray;
+    border-radius: 0px 20px 20px 20px;
+    width: fit-content;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    
+}
+
+#featured_ul {
+    list-style-type: none;
+    padding-right: 20px;
+}
+
+#likes {
+    text-align: end;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 210px;
+
+}
+
+#likes_icon {
+    vertical-align: bottom;
+}
+
+#search_button {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+
+#search_icon {
+    vertical-align: bottom;
+}
