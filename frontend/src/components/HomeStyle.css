@@ -35,7 +35,7 @@
 }
 
 #search_tab:focus {
-    background-color: blue;
+    background-color: darkgray;
     border-radius: 20px 20px 0 0;
 }
 
@@ -45,8 +45,9 @@
 }
 
 #featured_tab:focus {
-    background-color: blue;
+    background-color: darkgrey;
     border-radius: 20px 20px 0 0;
+    padding-right: 100px;
 }
 
 
@@ -64,6 +65,11 @@
 
 #search_form {
     margin-right: 20px;
+    padding-bottom: 20px;
+}
+
+#search_results {
+    padding-bottom: 10px;
 }
 
 #welcome_content {
@@ -76,12 +82,34 @@
     padding-right: 20px;
 }
 
+#results_il {
+    padding-bottom: 10px;
+}
+
+#featured_div {
+    
+    height: initial;
+    margin-left: 20px;
+    background-color: lightgray;
+    border-radius: 0px 20px 20px 20px;
+    width: fit-content;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    
+}
+
 #featured_ul {
     list-style-type: none;
+    padding-right: 20px;
 }
 
 #likes {
-    text-align: center;
+    text-align: end;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 210px;
+
 }
 
 #likes_icon {
@@ -90,4 +118,14 @@
 
 #search_button {
     margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+
+#search_icon {
+    vertical-align: bottom;
 }

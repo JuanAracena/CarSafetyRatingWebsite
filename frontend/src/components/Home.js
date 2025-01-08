@@ -3,6 +3,7 @@ import {useState, useEffect} from "react";
 import {useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import { FaHeart } from "react-icons/fa";
+import { IoSearchSharp } from "react-icons/io5";
 
 
 function getModelData(makeData) {
@@ -191,13 +192,13 @@ function Home() {
                             })}
                         </select>
                         <br></br>
-                        <button id="search_button" type="submit" disabled={!selectedModel}>Search</button>
+                        <button id="search_button" type="submit" disabled={!selectedModel}>Search <IoSearchSharp id="search_icon"/></button>
                     </form>
                 <div id="results">
-                    <h2>Search Results:</h2>
+                    <h2 id="search_results">Search Results:</h2>
                     <ul id="results_ul">
                         {searchResults.map((result, index) => {
-                            return <li key={index}>
+                            return <li id="results_il" key={index}>
                                 <div>
                                     <Link to="/details" state= {{result}}>{result.VehicleDescription}</Link>
                                 </div>
@@ -215,8 +216,8 @@ function Home() {
                     <ul id="featured_ul">
                         {featuredResults.map((result, index) => {
                             return <li key={index}>
-                                <div>
-                                    <Link to="/fdetails" state={{result}}>{result.vehicledescription}</Link>
+                                <div id="details_div">
+                                    <Link to="/fdetails" state={{result}}>{result.vehicledescription}{}</Link>
                                     <p id="likes"><FaHeart id="likes_icon"/> {result.likesnum}</p>                               
                                 </div>
                             </li>
