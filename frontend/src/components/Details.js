@@ -92,7 +92,7 @@ function Results() {
 
     return (
         <div id="description">
-            <h1>Vehicle Details:</h1>
+            <h1 id="info_title">Vehicle Details:</h1>
             <div id="info">
                 <p><strong>Model Year:</strong> {details[0]}</p>
                 <p><strong>Make:</strong> {details[1]}</p>
@@ -104,7 +104,7 @@ function Results() {
                 <p><strong>Rollover Possibility:</strong> {details[6] * 100}%</p>
                 <p><strong>Overall Rating:</strong> {details[7]}</p>
             </div>
-            <div id="featured_div">
+            <div id="featured_div2">
                 <button onClick={addFeatured}>Like</button>
                 <button onClick={() => navigate("/")}>Home</button>
             </div>

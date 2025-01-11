@@ -1,4 +1,4 @@
-import "./FeaturedDetailsStyle.css";
+import "./DetailsStyle.css";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import axios from "axios";
@@ -78,7 +78,7 @@ function FeaturedDetails() {
 
     return (
         <div id="description">
-            <h1>Vehicle Details:</h1>
+            <h1 id="info_title">Vehicle Details:</h1>
             <div id="info">
                 <p><strong>Model Year:</strong> {fDetails[0]}</p>
                 <p><strong>Make:</strong> {fDetails[1]}</p>
@@ -90,7 +90,7 @@ function FeaturedDetails() {
                 <p><strong>Rollover Possibility:</strong> {fDetails[6] * 100}%</p>
                 <p><strong>Overall Rating:</strong> {fDetails[7]}</p>
             </div>
-            <div id="featured_div">
+            <div id="featured_div2">
                 <button onClick={addFeatured}>Like</button>
                 <button onClick={() => navigate("/")}>Home</button>
             </div>
