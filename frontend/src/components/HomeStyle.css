@@ -1,13 +1,31 @@
 #background {
     height: fit-content;
+    padding-bottom: 10px;
+}
+
+#welcome_bg {
+    background-image: url("../../public/homeImg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: auto;
+    width: auto;
 }
 
 #welcome {
     display: grid;
     grid-template-rows: 50px 200px;
-    /* grid-row-gap: 30px; */
     padding-left: 30px;
     padding-top: 30px;
+    animation: fade-in 1s;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 

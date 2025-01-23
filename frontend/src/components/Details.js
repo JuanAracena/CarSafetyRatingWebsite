@@ -91,25 +91,27 @@ function Results() {
     }
 
     return (
-        <div id="description">
-            <h1 id="info_title">Vehicle Details:</h1>
-            <div id="info">
-                <p><strong>Model Year:</strong> {details[0]}</p>
-                <p><strong>Make:</strong> {details[1]}</p>
-                <p><strong>Model:</strong> {details[9]}</p>
-                <p><strong>Front Crash Driverside Rating:</strong> {details[2]}</p>
-                <p><strong>Front Crash Passengerside Rating:</strong> {details[3]}</p>
-                <p><strong>Side Crash Driverside Rating:</strong> {details[4]}</p>
-                <p><strong>Side Crash Passengerside Rating:</strong> {details[5]}</p>
-                <p><strong>Rollover Possibility:</strong> {details[6] * 100}%</p>
-                <p><strong>Overall Rating:</strong> {details[7]}</p>
+        <div id="description_bg">
+            <div id="description">
+                <h1 id="info_title">Vehicle Details:</h1>
+                <div id="info">
+                    <p><strong>Model Year:</strong> {details[0]}</p>
+                    <p><strong>Make:</strong> {details[1]}</p>
+                    <p><strong>Model:</strong> {details[9]}</p>
+                    <p><strong>Front Crash Driverside Rating:</strong> {details[2]}</p>
+                    <p><strong>Front Crash Passengerside Rating:</strong> {details[3]}</p>
+                    <p><strong>Side Crash Driverside Rating:</strong> {details[4]}</p>
+                    <p><strong>Side Crash Passengerside Rating:</strong> {details[5]}</p>
+                    <p><strong>Rollover Possibility:</strong> {details[6] * 100}%</p>
+                    <p><strong>Overall Rating:</strong> {details[7]}</p>
+                </div>
+                <div id="featured_div2">
+                    <button onClick={addFeatured}>Like</button>
+                    <button onClick={() => navigate("/")}>Home</button>
+                </div>
             </div>
-            <div id="featured_div2">
-                <button onClick={addFeatured}>Like</button>
-                <button onClick={() => navigate("/")}>Home</button>
-            </div>
-            
         </div>
+        
     )
 }
 

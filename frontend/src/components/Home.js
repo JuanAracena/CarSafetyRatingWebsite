@@ -159,7 +159,8 @@ function Home() {
     }
     
     return (
-        <div id="welcome">
+        <div id="welcome_bg">
+            <div id="welcome">
             <div id="welcome_tabs">
                 <button id="search_tab" onClick={() => handleContent('Search')}autoFocus>Search</button>
                 <button id="featured_tab" onClick={() => handleContent('Featured')}>Featured</button>
@@ -227,6 +228,7 @@ function Home() {
             )}
             </div>
             
+        </div>
         </div>
     )
     

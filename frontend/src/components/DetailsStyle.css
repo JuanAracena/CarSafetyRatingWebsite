@@ -1,9 +1,28 @@
+#description_bg {
+    background-image: url("../../public/detailsImg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: auto;
+    width: auto;
+}
+
 #description {
     display: grid;
     grid-template-rows: 50px 280px 50px;
     padding-left: 30px;
     padding-top: 20px;
     width: fit-content;
+    animation: fade-in 1s;
+
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #info_title {
