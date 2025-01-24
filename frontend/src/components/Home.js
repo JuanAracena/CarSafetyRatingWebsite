@@ -213,7 +213,6 @@ function Home() {
 
             {content === "Featured" && (
                 <div id="featured_div">
-                    {/* <h2>Featured:</h2> */}
                     <ul id="featured_ul">
                         {featuredResults.map((result, index) => {
                             return <li key={index}>

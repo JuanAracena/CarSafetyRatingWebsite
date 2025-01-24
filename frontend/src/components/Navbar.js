@@ -20,10 +20,10 @@ function Navbar() {
 
     useEffect(() => {
         if(windowWidth <= 576) {
-            setText("CSRW");
+            setText("SW");
         }
         else {
-            setText("Car Rating Safety Website");
+            setText("SafetyWheel");
         }
     }, [windowWidth])
 

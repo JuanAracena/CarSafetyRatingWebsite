@@ -1,6 +1,7 @@
 #background {
     height: fit-content;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    background-color: floralwhite;
 }
 
 #welcome_bg {
@@ -45,6 +46,7 @@
     border: none;
     font-size: 20px;
     text-align: start;
+    outline: none;
 
 }
 
